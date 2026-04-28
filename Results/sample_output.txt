@@ -1,0 +1,153 @@
+Installing OPA...
+Creating policies...
+
+=== DOMAIN: RBAC ===
+
+--- Testing rbac_v1.rego -> rbac_v2.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> Permit
+  Request 1: role=admin, emergency=None -> Permit -> Permit
+  Request 2: role=admin, emergency=None -> Permit -> Permit
+  Request 3: role=admin, emergency=None -> Permit -> Permit
+  Request 4: role=admin, emergency=None -> Permit -> Permit
+
+rbac_v1.rego -> rbac_v2.rego
+total_requests: 32
+drift: 8
+rate: 0.25
+expansion: 8
+restriction: 0
+divergence: 0
+time: 0.99
+
+--- Testing rbac_v2.rego -> rbac_v3.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> Permit
+  Request 1: role=admin, emergency=None -> Permit -> Permit
+  Request 2: role=admin, emergency=None -> Permit -> Permit
+  Request 3: role=admin, emergency=None -> Permit -> Permit
+  Request 4: role=admin, emergency=None -> Permit -> Permit
+
+rbac_v2.rego -> rbac_v3.rego
+total_requests: 32
+drift: 16
+rate: 0.5
+expansion: 0
+restriction: 8
+divergence: 8
+time: 0.99
+
+--- Testing rbac_v3.rego -> rbac_v4.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 1: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 2: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 3: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 4: role=admin, emergency=None -> Permit -> NotApplicable
+
+rbac_v3.rego -> rbac_v4.rego
+total_requests: 32
+drift: 16
+rate: 0.5
+expansion: 0
+restriction: 0
+divergence: 16
+time: 0.99
+
+=== DOMAIN: ABAC ===
+
+--- Testing abac_v1.rego -> abac_v2.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> Permit
+  Request 1: role=admin, emergency=None -> Permit -> Permit
+  Request 2: role=admin, emergency=None -> NotApplicable -> Permit
+  Request 3: role=admin, emergency=None -> NotApplicable -> NotApplicable
+  Request 4: role=admin, emergency=None -> Permit -> Permit
+
+abac_v1.rego -> abac_v2.rego
+total_requests: 32
+drift: 8
+rate: 0.25
+expansion: 8
+restriction: 0
+divergence: 0
+time: 1.02
+
+--- Testing abac_v2.rego -> abac_v3.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> Permit
+  Request 1: role=admin, emergency=None -> Permit -> Permit
+  Request 2: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 3: role=admin, emergency=None -> NotApplicable -> NotApplicable
+  Request 4: role=admin, emergency=None -> Permit -> NotApplicable
+
+abac_v2.rego -> abac_v3.rego
+total_requests: 32
+drift: 20
+rate: 0.625
+expansion: 0
+restriction: 4
+divergence: 16
+time: 1.0
+
+--- Testing abac_v3.rego -> abac_v4.rego ---
+  Request 0: role=admin, emergency=None -> Permit -> Permit
+  Request 1: role=admin, emergency=None -> Permit -> NotApplicable
+  Request 2: role=admin, emergency=None -> NotApplicable -> Permit
+  Request 3: role=admin, emergency=None -> NotApplicable -> NotApplicable
+  Request 4: role=admin, emergency=None -> NotApplicable -> NotApplicable
+
+abac_v3.rego -> abac_v4.rego
+total_requests: 32
+drift: 16
+rate: 0.5
+expansion: 4
+restriction: 0
+divergence: 12
+time: 0.98
+
+=== DOMAIN: HEALTH ===
+Generated 9 requests for health domain
+
+--- Testing health_v1.rego -> health_v2.rego ---
+  Request 0: role=doctor, emergency=True -> Permit -> Permit
+  Request 1: role=doctor, emergency=False -> Permit -> Permit
+  Request 2: role=nurse, emergency=True -> NotApplicable -> Permit
+  Request 3: role=nurse, emergency=False -> NotApplicable -> Permit
+  Request 4: role=patient, emergency=True -> NotApplicable -> NotApplicable
+
+health_v1.rego -> health_v2.rego
+total_requests: 9
+drift: 3
+rate: 0.3333
+expansion: 3
+restriction: 0
+divergence: 0
+time: 0.28
+
+--- Testing health_v2.rego -> health_v3.rego ---
+  Request 0: role=doctor, emergency=True -> Permit -> Deny
+  Request 1: role=doctor, emergency=False -> Permit -> Deny
+  Request 2: role=nurse, emergency=True -> Permit -> Permit
+  Request 3: role=nurse, emergency=False -> Permit -> Permit
+  Request 4: role=patient, emergency=True -> NotApplicable -> NotApplicable
+
+health_v2.rego -> health_v3.rego
+total_requests: 9
+drift: 3
+rate: 0.3333
+expansion: 0
+restriction: 3
+divergence: 0
+time: 0.28
+
+--- Testing health_v3.rego -> health_v4.rego ---
+  Request 0: role=doctor, emergency=True -> Deny -> Permit
+  Request 1: role=doctor, emergency=False -> Deny -> Deny
+  Request 2: role=nurse, emergency=True -> Permit -> Permit
+  Request 3: role=nurse, emergency=False -> Permit -> Deny
+  Request 4: role=patient, emergency=True -> NotApplicable -> Permit
+
+health_v3.rego -> health_v4.rego
+total_requests: 9
+drift: 6
+rate: 0.6667
+expansion: 2
+restriction: 2
+divergence: 2
+time: 0.29
