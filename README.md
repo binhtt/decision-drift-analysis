@@ -37,7 +37,7 @@ For each domain:
 - A finite request set \( R' \) is generated
 - Decision drift is computed between consecutive policy versions
 
-### Request Sets
+## Request Sets
 
 - **RBAC and ABAC**: 32 requests  
   (constructed via full combinatorial enumeration of attributes)
@@ -47,20 +47,45 @@ For each domain:
 
 This design reflects the difference between **systematic evaluation** (RBAC/ABAC) and **scenario-driven evaluation** (Healthcare).
 
----
-
-## Reproducibility
-
-### Requirements
+## Requirements
 
 - Python 3.8+
 - Open Policy Agent (OPA)
-### Run the experiment
-
-```bash
-python main.py
+## Run the experiment
+ - python main.py
 
 ## Sample Results
 
-A full example of the experimental output is available at:
+- A full example of the experimental output is available at:
 [View sample output](./Results/sample_output.txt)
+
+## Output Description
+
+For each policy transition, the framework reports:
+
+- Total number of requests
+- Number of drift cases
+- Drift rate
+- Number of:
+     + Expansion cases
+     + Restriction cases
+     + Divergence cases
+
+## Artifact Structure 
+├── src/
+│   ├── evaluator.py
+│   ├── drift.py
+│   ├── generator.py
+│   └── policies.py
+├── Results/
+│   └── sample_output.txt
+├── main.py
+└── README.md
+## Notes
+The artifact focuses on semantic behavior comparison, not syntactic policy differences.
+Drift results depend on the coverage of the request set R'.
+Policy evaluation is assumed to be deterministic.
+
+## License
+
+This project is licensed under the MIT License.
