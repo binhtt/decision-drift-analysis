@@ -14,12 +14,12 @@ Decision drift captures **semantic changes in authorization outcomes** across po
 
 The framework supports:
 
-- Cross-version policy evaluation
-- Drift detection over a request set
+- Cross-version policy evaluation  
+- Drift detection over a request set  
 - Classification of drift into:
-  - **Expansion** (more permissive changes)
-  - **Restriction** (more restrictive changes)
-  - **Divergence** (non-monotonic semantic changes)
+  - **Expansion** (more permissive changes)  
+  - **Restriction** (more restrictive changes)  
+  - **Divergence** (non-monotonic semantic changes)  
 
 ---
 
@@ -27,15 +27,17 @@ The framework supports:
 
 The approach is evaluated across three representative policy domains:
 
-- **RBAC** (Role-Based Access Control)
-- **ABAC** (Attribute-Based Access Control)
-- **Healthcare policy scenario**
+- **RBAC** (Role-Based Access Control)  
+- **ABAC** (Attribute-Based Access Control)  
+- **Healthcare policy scenario**  
 
 For each domain:
 
-- Multiple policy versions are defined
-- A finite request set \( R' \) is generated
-- Decision drift is computed between consecutive policy versions
+- Multiple policy versions are defined  
+- A finite request set \( R' \) is generated  
+- Decision drift is computed between consecutive policy versions  
+
+---
 
 ## Request Sets
 
@@ -45,15 +47,24 @@ For each domain:
 - **Healthcare**: 9 requests  
   (domain-specific scenarios focusing on role and emergency conditions)
 
-This design reflects the difference between **systematic evaluation** (RBAC/ABAC) and **scenario-driven evaluation** (Healthcare).
+This design reflects the difference between:
+
+- **Systematic evaluation** (RBAC/ABAC)  
+- **Scenario-driven evaluation** (Healthcare)
+
+---
 
 ## Requirements
 
-- Python 3.8+
-- Open Policy Agent (OPA)
-## Run the experiment
- - python main.py
+- Python 3.8+  
+- Open Policy Agent (OPA)  
 
+---
+
+## Run the Experiment
+
+```bash
+python main.py
 ## Sample Results
 
 - A full example of the experimental output is available at:
