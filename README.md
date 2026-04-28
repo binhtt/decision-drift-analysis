@@ -55,11 +55,12 @@ This design reflects the difference between **systematic evaluation** (RBAC/ABAC
 
 - Python 3.8+
 - Open Policy Agent (OPA)
-
 ### Run the experiment
 
 ```bash
-python main.py## Sample Results
+python main.py
+
+## Sample Results
 
 A full example of the experimental output is available at:
 [View sample output](./Results/sample_output.txt)
