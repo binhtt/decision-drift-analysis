@@ -36,5 +36,7 @@ For each domain:
 - Decision drift is computed between consecutive versions
 
 ---
+## Sample Results
 
-## 📂 Repository Structure
+A full example of the experimental output is available at:
+[View sample output](./Results/sample_output.txt)
