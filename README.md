@@ -69,7 +69,6 @@ python main.py
 
 - A full example of the experimental output is available at:
 [View sample output](./Results/sample_output.txt)
-<a href="./Results/sample_output.txt" target="_blank">View sample output</a>
 
 ## Output Description
 
