@@ -1,6 +1,6 @@
 # Decision Drift Analysis in Access Control Policy Evolution
 
-This repository contains the **experimental artifact** for the paper:
+This repository contains the experimental artifact for the paper:
 
 > *Analyzing Authorization Decision Drift in Access Control Policy Evolution*
 
@@ -8,94 +8,124 @@ This repository contains the **experimental artifact** for the paper:
 
 ## Overview
 
-This project implements a framework for analyzing **decision drift** between versions of access control policies.
-
-Decision drift captures **semantic changes in authorization outcomes** across policy versions, going beyond syntactic differences.
+This project implements a framework for analyzing **authorization decision drift** across evolving access control policies.
 
 The framework supports:
 
-- Cross-version policy evaluation  
-- Drift detection over a request set  
-- Classification of drift into:
-  - **Expansion** (more permissive changes)  
-  - **Restriction** (more restrictive changes)  
-  - **Divergence** (non-monotonic semantic changes)  
+- Cross-version policy evaluation
+- Decision drift detection
+- Drift quantification
+- Drift classification into:
+  - **Expansion**
+  - **Restriction**
+  - **Divergence**
 
 ---
 
-## Experimental Setup
+## Experimental Evaluation
 
-The approach is evaluated across three representative policy domains:
+The artifact includes experiments reported in the paper across:
 
-- **RBAC** (Role-Based Access Control)  
-- **ABAC** (Attribute-Based Access Control)  
-- **Healthcare policy scenario**  
+- RBAC (Role-Based Access Control)
+- ABAC (Attribute-Based Access Control)
+- Healthcare access control scenarios
 
-For each domain:
+The evaluation consists of:
 
-- Multiple policy versions are defined  
-- A finite request set \( R' \) is generated  
-- Decision drift is computed between consecutive policy versions  
-
----
-
-## Request Sets
-
-- **RBAC and ABAC**: 32 requests  
-  (constructed via full combinatorial enumeration of attributes)
-
-- **Healthcare**: 9 requests  
-  (domain-specific scenarios focusing on role and emergency conditions)
-
-This design reflects the difference between:
-
-- **Systematic evaluation** (RBAC/ABAC)  
-- **Scenario-driven evaluation** (Healthcare)
+1. Domain-specific policy evolution case studies
+2. Monte-Carlo scalability experiments (10³–10⁶ requests)
+3. Large-scale drift-category analysis
 
 ---
 
 ## Requirements
 
-- Python 3.8+  
-- Open Policy Agent (OPA)  
+- Python 3.8+
+- Open Policy Agent (OPA)
 
 ---
 
-## Run the Experiment
+## Running the Experiments
+
+### Case Studies
 
 ```bash
 python main.py
-## Sample Results
+```
 
-- A full example of the experimental output is available at:
-[View sample output](./Results/sample_output.txt)
+### Monte-Carlo Experiments
 
-## Output Description
+```bash
+python src/Monte_Carlo.py
+```
 
-For each policy transition, the framework reports:
+---
 
-- Total number of requests
-- Number of drift cases
-- Drift rate
-- Number of:
-     + Expansion cases
-     + Restriction cases
-     + Divergence cases
+## Results
 
-## Artifact Structure 
-├── src/
-│   ├── evaluator.py
+### Sample Output
+
+- Domain-specific experiment results:
+
+  ```
+  Results/sample_output.txt
+  ```
+
+- Monte-Carlo scalability and drift-category analysis:
+
+  ```
+  Results/monte_carlo_results.txt
+  ```
+
+### Generated Figures
+
+- Runtime scalability:
+
+  ```
+  Results/time.png
+  ```
+
+- Drift growth versus request-set size:
+
+  ```
+  Results/request.png
+  ```
+
+---
+
+## Artifact Structure
+
+```text
+decision-drift-analysis
+│
+├── src
+│   ├── Monte_Carlo.py
 │   ├── drift.py
+│   ├── evaluator.py
 │   ├── generator.py
 │   └── policies.py
-├── Results/
-│   └── sample_output.txt
+│
+├── Results
+│   ├── sample_output.txt
+│   ├── monte_carlo_results.txt
+│   ├── time.png
+│   └── request.png
+│
 ├── main.py
-└── README.md
+├── README.md
+└── LICENSE
+```
+
+---
+
 ## Notes
-The artifact focuses on semantic behavior comparison, not syntactic policy differences.
-Drift results depend on the coverage of the request set R'.
-Policy evaluation is assumed to be deterministic.
+
+- The artifact focuses on semantic analysis of authorization behavior rather than syntactic policy differences.
+- Drift measurements depend on the coverage of the evaluated request set.
+- Monte-Carlo experiments are included to evaluate scalability under large request spaces.
+- Policy evaluation is assumed to be deterministic.
+
+---
 
 ## License
 
